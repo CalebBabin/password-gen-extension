@@ -1,7 +1,7 @@
 {
   "name": "Secure password generator",
   "version": "1.0.0",
-  "description": "Simple extension that generates a password, doesn't do anything fancy or send your password somewhere for \"analytics\" reasons, just a simple extension.",
+  "description": "Simple extension that generates a password locally, doesn't do anything fancy or send your password somewhere for \"analytics\" reasons, just a simple extension.",
   "permissions": [
     "storage"
   ],
