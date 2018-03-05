@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body {
+			width: 300px;
+			background: #111;
+			color: #ddd;
+			text-align: center;
+		}
+		a {
+			color: #2c2cbb;
+		}
+		#password {
+			border: 1px dashed #1AA0CC;
+			box-shadow: 0px 0px 2px #1AA0CC;
+			border-radius: 7px;
+			padding: 5px;
+			text-align: center;
+			display: block;
+			width: 90%;
+			margin: auto;
+			background-color: #B4ECFF;
+			opacity: 0.9;
+			color: #111;
+			font-size: 14px;
+			font-family: monospace;
+			white-space: pre;
+
+			overflow-y: auto;
+		}
+		button {
+			border: none;
+			border-radius: 5px;
+			padding: 5px 12px;
+			margin: 5px auto;
+			display: block;
+		}
+		input {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		input[type="checkbox"] {
+			display: inline;
+		}
+		input[type="range"] {
+			width: 100%;
+		}
+
+		.hide-before-load {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div id="password"></div>
+	<button id="generate">New password</button>
+
+	<div class="hide-before-load">
+		<br>
+		<input id="plengthslider" type="range" value=10 min=1 max=30>
+		<input id="plengthnumber" type="number" value=10>
+		<br>
+		Lowercase letters: <input id="letters" type="checkbox">	
+		<br>
+		Uppercase letters: <input id="letters_upper" type="checkbox">
+		<br>
+		Numbers: <input id="numbers" type="checkbox">
+		<br>
+		Symbols: <input id="symbols" type="checkbox">
+	</div>
+	
+	
+	<script src="popup.js"></script>
+</body>
+</html>
