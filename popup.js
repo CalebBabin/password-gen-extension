@@ -134,7 +134,7 @@ function sliderHandler () {
 document.getElementById("plengthnumber").addEventListener("input", numberHandler);
 
 function numberHandler () {
-  if (this.value > 100) this.value = 100;
+  if (this.value > 1028) this.value = 1028;
   options.length = this.value;
   document.getElementById("plengthslider").value = this.value;
   generate();
