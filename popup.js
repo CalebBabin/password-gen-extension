@@ -160,6 +160,18 @@ function checkbox () {
   generate();
 }
 
+document.getElementById("password").addEventListener("click", function () {
+  if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText(this);
+    range.select();
+  } else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(this);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  }
+})
 
 
 chrome.storage.sync.get('key', function (data) {
