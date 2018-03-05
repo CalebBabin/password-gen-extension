@@ -104,7 +104,7 @@ function generate () {
       characters[options.c[r(options.c.length)]]
     )
   };
-  document.getElementById("password").innerHTML = string;
+  document.getElementById("password").innerText = string;
 
   
   var pushSettings = {};
