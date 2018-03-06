@@ -105,8 +105,9 @@ function generate () {
     )
   };
   document.getElementById("password").innerText = string;
-
   
+  if (keyboardTimeout < Date.now() - 1000) selectPassword();
+
   var pushSettings = {};
   for (var prop in persistance) {
     if (persistance[prop]) pushSettings[prop] = options[prop];
@@ -160,37 +161,47 @@ function checkbox () {
   generate();
 }
 
-document.getElementById("password").addEventListener("click", function () {
+document.getElementById("password").addEventListener("click", selectPassword)
+
+function selectPassword () {
   if (document.selection) {
     var range = document.body.createTextRange();
-    range.moveToElementText(this);
+    range.moveToElementText(document.getElementById("password"));
     range.select();
   } else if (window.getSelection) {
     var range = document.createRange();
-    range.selectNode(this);
+    range.selectNode(document.getElementById("password"));
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);
   }
-})
+}
 
+window.addEventListener("keyup", updateKeyTime);
+window.addEventListener("keydown", updateKeyTime);
+window.addEventListener("keypress", updateKeyTime);
+
+var keyboardTimeout = 0;
+function updateKeyTime () {
+  keyboardTimeout = Date.now();
+}
 
 chrome.storage.sync.get('key', function (data) {
-    console.log(data);
-    if (!data || !data.key) data = {key: defaults}
-    if (data && data.key && data.key.persistance && data.key.settings) {
-      data = data.key;
-      options = data.settings;
-    
-      for (var i = 0; i < options.c.length; i++) {
-        document.getElementById(options.c[i]).checked = true;
-      }
-
-      document.getElementById("plengthslider").value = options.length;
-      document.getElementById("plengthnumber").value = options.length;
-    
+  console.log(data);
+  if (!data || !data.key) data = {key: defaults}
+  if (data && data.key && data.key.persistance && data.key.settings) {
+    data = data.key;
+    options = data.settings;
+  
+    for (var i = 0; i < options.c.length; i++) {
+      document.getElementById(options.c[i]).checked = true;
     }
-    settingsLoaded();
-  });
+
+    document.getElementById("plengthslider").value = options.length;
+    document.getElementById("plengthnumber").value = options.length;
+  
+  }
+  settingsLoaded();
+});
 
 
 
@@ -200,4 +211,6 @@ function settingsLoaded() {
     eles[i].classList.remove("hide-before-load");
   }
   generate();
+  
+  selectPassword();
 }
