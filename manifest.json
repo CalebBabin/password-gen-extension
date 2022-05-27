@@ -1,6 +1,6 @@
 {
 	"name": "Secure password generator",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Simple extension that generates a random password locally, doesn't beam your password over the internet.",
 	"permissions": [
 		"storage"
