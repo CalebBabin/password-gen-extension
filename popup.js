@@ -99,11 +99,17 @@ function getOne(arr) {
 function generate() {
 	if (options.c.length === 0) return;
 	let string = "";
-	for (let i = 0; i < options.length; i++) {
-		string += getOne(
-			characters[options.c[r(options.c.length)]]
-		)
-	};
+	let availableCharacters = [];
+	for (let i = 0; i < options.c.length; i++) {
+		availableCharacters = [...availableCharacters, ...characters[options.c[i]]];
+	}
+	if ('crypto' in window) {
+		string = Array.from(crypto.getRandomValues(new Uint8Array(options.length))).map(x => availableCharacters[x % availableCharacters.length]).join("");
+	} else {
+		for (let i = 0; i < options.length; i++) {
+			string += getOne(availableCharacters)
+		};
+	}
 	document.getElementById("password").innerText = string;
 
 	if (keyboardTimeout < Date.now() - 1000) selectPassword();
@@ -117,8 +123,6 @@ function generate() {
 			settings: pushSettings,
 			persistance: persistance
 		}
-	}, function () {
-		console.log(options);
 	});
 
 }
@@ -186,7 +190,6 @@ function updateKeyTime() {
 }
 
 chrome.storage.sync.get('key', function (data) {
-	console.log(data);
 	if (!data || !data.key) data = { key: defaults }
 	if (data && data.key && data.key.persistance && data.key.settings) {
 		data = data.key;
