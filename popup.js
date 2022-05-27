@@ -1,4 +1,4 @@
-var characters = {
+const characters = {
 	letters: [
 		"a",
 		"b",
@@ -74,7 +74,7 @@ var characters = {
 
 if (typeof chrome === "undefined") chrome = browser;
 
-var defaults = {
+const defaults = {
 	settings: {
 		length: 10,
 		c: ["letters", "letters_upper", "numbers", "symbols"]
@@ -85,8 +85,8 @@ var defaults = {
 	}
 };
 
-var options = defaults.settings;
-var persistance = defaults.persistance;
+let options = defaults.settings;
+let persistance = defaults.persistance;
 
 function r(max) {
 	return Math.floor(Math.random() * max);
@@ -98,8 +98,8 @@ function getOne(arr) {
 
 function generate() {
 	if (options.c.length === 0) return;
-	var string = "";
-	for (var i = 0; i < options.length; i++) {
+	let string = "";
+	for (let i = 0; i < options.length; i++) {
 		string += getOne(
 			characters[options.c[r(options.c.length)]]
 		)
@@ -108,8 +108,8 @@ function generate() {
 
 	if (keyboardTimeout < Date.now() - 1000) selectPassword();
 
-	var pushSettings = {};
-	for (var prop in persistance) {
+	let pushSettings = {};
+	for (let prop in persistance) {
 		if (persistance[prop]) pushSettings[prop] = options[prop];
 	}
 	chrome.storage.sync.set({
@@ -147,7 +147,7 @@ document.getElementById("numbers").addEventListener("change", checkbox);
 document.getElementById("symbols").addEventListener("change", checkbox);
 
 function checkbox() {
-	var index = options.c.indexOf(this.id);
+	let index = options.c.indexOf(this.id);
 
 	if (this.checked) {
 		if (index < 0) {
@@ -165,11 +165,11 @@ document.getElementById("password").addEventListener("click", selectPassword)
 
 function selectPassword() {
 	if (document.selection) {
-		var range = document.body.createTextRange();
+		let range = document.body.createTextRange();
 		range.moveToElementText(document.getElementById("password"));
 		range.select();
 	} else if (window.getSelection) {
-		var range = document.createRange();
+		let range = document.createRange();
 		range.selectNode(document.getElementById("password"));
 		window.getSelection().removeAllRanges();
 		window.getSelection().addRange(range);
@@ -180,7 +180,7 @@ window.addEventListener("keyup", updateKeyTime);
 window.addEventListener("keydown", updateKeyTime);
 window.addEventListener("keypress", updateKeyTime);
 
-var keyboardTimeout = 0;
+let keyboardTimeout = 0;
 function updateKeyTime() {
 	keyboardTimeout = Date.now();
 }
@@ -192,7 +192,7 @@ chrome.storage.sync.get('key', function (data) {
 		data = data.key;
 		options = data.settings;
 
-		for (var i = 0; i < options.c.length; i++) {
+		for (let i = 0; i < options.c.length; i++) {
 			document.getElementById(options.c[i]).checked = true;
 		}
 
@@ -206,7 +206,7 @@ chrome.storage.sync.get('key', function (data) {
 
 
 function settingsLoaded() {
-	var eles = document.getElementsByClassName("hide-before-load");
+	const eles = document.getElementsByClassName("hide-before-load");
 	for (let i = 0; i < eles.length; i++) {
 		eles[i].classList.remove("hide-before-load");
 	}
